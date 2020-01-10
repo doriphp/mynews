@@ -7,6 +7,7 @@
             <div class="col-md-8 mx-auto">
                 <h2>プロフィール編集</h2>
                 <form action="{{ action('Admin\ProfileController@update') }}" method="post" enctype="multipart/form-data">
+                    
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -15,35 +16,50 @@
                         </ul>
                     @endif
                     <div class="form-group row">
-                        <label class="col-md-2">氏名</label>
+                        <label class="col-md-2" for="name">氏名</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="name" value="{{ old('title') }}">
+                            <input type="text" class="form-control" name="name" value="{{ $profile_form->name }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">性別</label>
                         <div class="col-md-10">
-                        <input type="radio" name="gender" value="1">男性
-                        <input type="radio" name="gender" value="2">女性
+                        <input type="radio" name="gender" value="1"><b>男性</b>
+                        <input type="radio" name="gender" value="2"><b>女性</b>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">趣味</label>
+                        <label class="col-md-2" for="hobby">趣味</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="hobby" value="{{ old('title') }}">
+                            <input type="text" class="form-control" name="hobby" value="{{ $profile_form->hobby }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">自己紹介欄</label>
+                        <label class="col-md-2" for="introduction">自己紹介</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="introduction" rows="10">{{ old('body') }}</textarea>
+                            <textarea class="form-control" name="introduction" rows="10">{{ $profile_form->introduction }}</textarea>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-md-10">
+                            <input type="hidden" name="id" value="{{ $profile_form->id }}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-primary" value="更新">
                         </div>
                     </div>
                 </form>
+                <div class ="row mt-5">
+                    <div class="col-md-4 mx-auto">
+                        <h2>編集履歴</h2>
+                        <ul class="list-group">
+                            @if ($profile_form->profilehistories != NULL)
+                                @foreach ($profile_form->profilehistories as $profile_history)
+                                    <li class="list-group-item">{{ $profile_history->edited_at }}</li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>    
+                </div>
             </div>
         </div>
     </div>
