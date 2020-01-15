@@ -1,10 +1,12 @@
 body {
-  color: #000;
+  color: #fff;
+  background-color: #000;
 }
 
 .header .logo {
   width: 120px;
   height: 82px;
+  color: #000;
 }
 
 .headline .caption {
